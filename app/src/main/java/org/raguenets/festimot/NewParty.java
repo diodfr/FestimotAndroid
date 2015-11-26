@@ -94,6 +94,21 @@ public class NewParty extends AppCompatActivity {
             }
         });
 
+        mSocket.on("solution", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                Log.d("indice", Arrays.toString(args));
+                NewParty.this.log("indice", args);
+                final Object[] arg = args;
+                NewParty.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        NewParty.this.newSolution(arg);
+                    }
+                });
+            }
+        });
+
         mSocket.connect();
 
         mSocket.emit("clientconnect", "");
@@ -135,12 +150,32 @@ public class NewParty extends AppCompatActivity {
 
     private void newIndice(Object[] args) {
         TextView textView = (TextView) findViewById(R.id.indice);
-        textView.append(Arrays.toString(args));
+        JSONObject msg = (JSONObject) args[0];
+        try {
+            textView.setText((String) msg.get("indiceText"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void newSolution(Object[] args) {
+        TextView textView = (TextView) findViewById(R.id.indice);
+        JSONObject msg = (JSONObject) args[0];
+        try {
+            textView.setText((String) msg.get("answer"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private void newDefinition(Object[] args) {
         TextView textView = (TextView) findViewById(R.id.definition);
-        textView.append(Arrays.toString(args));
+        JSONObject msg = (JSONObject) args[0];
+        try {
+            textView.setText((String) msg.get("definition"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         Button send = (Button) findViewById(R.id.send);
         send.setEnabled(true);
