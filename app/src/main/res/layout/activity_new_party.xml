@@ -20,5 +20,48 @@
         android:layout_height="wrap_content"
         android:text="New Game"
         android:id="@+id/button"
-        android:layout_centerInParent="true" />
+        android:layout_below="@+id/connexion_status"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Definition"
+        android:id="@+id/definition"
+        android:layout_below="@+id/button"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Indice"
+        android:id="@+id/indice"
+        android:layout_below="@+id/definition"
+        android:layout_centerHorizontal="true" />
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/reponse"
+        android:layout_below="@+id/indice"
+        android:layout_centerHorizontal="true"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:id="@+id/send"
+        android:enabled="false"
+        android:layout_below="@+id/reponse"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:text="Log window"
+        android:id="@+id/logs"
+        android:layout_below="@+id/send"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>
