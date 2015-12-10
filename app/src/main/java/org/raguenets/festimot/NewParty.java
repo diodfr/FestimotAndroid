@@ -146,6 +146,18 @@ public class NewParty extends AppCompatActivity {
                 send.setEnabled(false);
             }
         });
+
+        final Button next = (Button) findViewById(R.id.next);
+
+        next.setOnClickListener(new View.OnClickListener()  {
+            @Override
+            public void onClick(View v) {
+
+                JSONObject msg = new JSONObject();
+
+                mSocket.emit("nextindice", msg);
+            }
+        });
     }
 
     private void newIndice(Object[] args) {
@@ -179,6 +191,8 @@ public class NewParty extends AppCompatActivity {
 
         Button send = (Button) findViewById(R.id.send);
         send.setEnabled(true);
+        Button next = (Button) findViewById(R.id.next);
+        next.setEnabled(true);
     }
 
     private void log(final String message, final Object[] args) {

@@ -47,21 +47,37 @@
         android:id="@+id/reponse"
         android:layout_below="@+id/indice"
         android:layout_centerHorizontal="true"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit"
-        android:id="@+id/send"
-        android:enabled="false"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@+id/reponse"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:id="@+id/buttons">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:id="@+id/next"
+            android:enabled="false"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:id="@+id/send"
+            android:enabled="false"/>
+    </LinearLayout>
 
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/buttons">
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:text="Log window"
         android:id="@+id/logs"
-        android:layout_below="@+id/send"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerVertical="true" />
+    </ScrollView>
 
 </RelativeLayout>
