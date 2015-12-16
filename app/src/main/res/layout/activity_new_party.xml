@@ -32,45 +32,54 @@
             android:text="score"
             android:id="@+id/score"
             android:textColor="@android:color/holo_green_light"
-            android:layout_centerHorizontal="true"
-            android:numeric="integer"
-            android:textSize="20dp"
+            android:textSize="30sp"
             android:textIsSelectable="false" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="/"
             android:textColor="@android:color/holo_green_light"
-            android:layout_centerHorizontal="true"
-            android:textSize="30dp" />
+            android:textSize="30sp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="best"
             android:id="@+id/bestScore"
             android:textColor="@android:color/holo_green_dark"
-            android:layout_centerHorizontal="true"
-            android:numeric="integer"
-            android:textSize="30dp" />
+            android:textSize="30sp" />
 
     </LinearLayout>
 
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/definitions"
+    android:layout_below="@+id/Scores">
     <TextView
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Definition"
-        android:id="@+id/definition"
-        android:layout_below="@+id/Scores"
-        android:layout_centerHorizontal="true" />
+        android:text="5"
+        android:id="@+id/definition_number"
+        android:padding="5dp"
+        />
+    <TextView
+    android:layout_width="0dp"
+        android:layout_weight="1"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:text="Definition"
+    android:id="@+id/definition"
+    android:layout_centerHorizontal="true" />
+</LinearLayout>
+
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Indice"
         android:id="@+id/indice"
-        android:layout_below="@+id/definition"
+        android:layout_below="@+id/definitions"
         android:layout_centerHorizontal="true" />
     <EditText
         android:layout_width="fill_parent"
@@ -79,7 +88,8 @@
         android:id="@+id/reponse"
         android:layout_below="@+id/indice"
         android:layout_centerHorizontal="true"
-        android:textAlignment="center" />
+        android:textAlignment="center"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -263,10 +263,15 @@ public class NewParty extends AppCompatActivity {
 
     private void newDefinition(Object[] args) {
         TextView textView = (TextView) findViewById(R.id.definition);
+        TextView definition_number = (TextView) findViewById(R.id.definition_number);
+        TextView indice = (TextView) findViewById(R.id.indice);
+
         EditText reponse = (EditText) findViewById(R.id.reponse);
         JSONObject msg = (JSONObject) args[0];
         try {
             textView.setText((String) msg.get("definition"));
+            definition_number.setText(String.valueOf(msg.get("current")));
+            indice.setText(new String(new char[(int) msg.get("taille")]).replace("\0", "_"));
             reponse.setText("");
         } catch (JSONException e) {
             e.printStackTrace();
