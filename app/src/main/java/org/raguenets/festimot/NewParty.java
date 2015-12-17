@@ -23,6 +23,11 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
 
 public class NewParty extends AppCompatActivity {
     private String clientId;
@@ -30,11 +35,38 @@ public class NewParty extends AppCompatActivity {
     private Socket mSocket;
 
     {
+        reset(new Handler() {
+            @Override
+            public void close() {
+
+            }
+
+            @Override
+            public void flush() {
+
+            }
+
+            @Override
+            public void publish(LogRecord record) {
+                Log.i("SocketIO", record.getMessage());
+            }
+        });
+
+        Logger.getLogger(Socket.class.getName()).setLevel(Level.FINEST);
         try {
             mSocket = IO.socket("https://www.raguenets.org/festimot");
         } catch (URISyntaxException e) {
             Log.e("NewParty", Log.getStackTraceString(e));
         }
+    }
+
+    public static void reset(Handler rootHandler) {
+        Logger rootLogger = LogManager.getLogManager().getLogger("");
+        Handler[] handlers = rootLogger.getHandlers();
+        for (Handler handler : handlers) {
+            rootLogger.removeHandler(handler);
+        }
+        LogManager.getLogManager().getLogger("").addHandler(rootHandler);
     }
 
     @Override
@@ -115,6 +147,21 @@ public class NewParty extends AppCompatActivity {
             }
         });
 
+        mSocket.on("points", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                Log.d("points", Arrays.toString(args));
+                NewParty.this.log("points", args);
+                final Object[] arg = args;
+                NewParty.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        NewParty.this.updatePoints(arg);
+                    }
+                });
+            }
+        });
+
         mSocket.on("scores", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
@@ -140,6 +187,21 @@ public class NewParty extends AppCompatActivity {
                     @Override
                     public void run() {
                         NewParty.this.displayScores(args);
+                    }
+                });
+            }
+        });
+
+        mSocket.on("time", new Emitter.Listener() {
+            @Override
+            public void call(final Object... args) {
+                Log.d("time", Arrays.toString(args));
+                NewParty.this.log("time", args);
+
+                NewParty.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        NewParty.this.updateChrono(args);
                     }
                 });
             }
@@ -194,6 +256,28 @@ public class NewParty extends AppCompatActivity {
                 mSocket.emit("nextindice", msg);
             }
         });
+    }
+
+    private void updateChrono(Object[] args) {
+        TextView chronoTextView = (TextView) findViewById(R.id.time);
+        JSONObject msg = (JSONObject) args[0];
+        try {
+            chronoTextView.setText(String.valueOf(msg.get("chrono")));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updatePoints(Object[] arg) {
+        TextView scoreTextView = (TextView) findViewById(R.id.score);
+        TextView bestScoreTextView = (TextView) findViewById(R.id.bestScore);
+        JSONObject msg = (JSONObject) arg[0];
+        try {
+            scoreTextView.setText(String.valueOf(msg.get("score")));
+            bestScoreTextView.setText(String.valueOf(msg.get("best")));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private void displayScores(Object[] args) {

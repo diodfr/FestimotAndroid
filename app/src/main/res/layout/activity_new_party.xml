@@ -8,7 +8,12 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="org.raguenets.festimot.NewParty">
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TIME"
+        android:id="@+id/time"
+        />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -80,7 +85,10 @@
         android:text="Indice"
         android:id="@+id/indice"
         android:layout_below="@+id/definitions"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:letterSpacing="0.5"
+        />
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
