@@ -297,13 +297,11 @@ public class NewParty extends AppCompatActivity {
     private Result[] createResults(JSONObject arg) {
         List<Result> results = new ArrayList<>();
         try {
-            JSONArray definitions = arg.getJSONArray("definitions");
-            JSONArray answers = arg.getJSONArray("answers");
-            JSONArray mots = arg.getJSONArray("mots");
-            JSONArray points = arg.getJSONArray("points");
+            JSONArray records = arg.getJSONArray("records");
 
-            for (int i=0; i < definitions.length(); i++) {
-                results.add(new Result(definitions.getString(i), mots.getString(i), answers.getString(i), points.getInt(i)));
+            for (int i=0; i < records.length(); i++) {
+                JSONObject record = (JSONObject) records.get(i);
+                results.add(new Result(record.getString("definition"), record.getString("mot"), record.getString("answer"), record.getInt("points")));
             }
 
         } catch (JSONException e) {
